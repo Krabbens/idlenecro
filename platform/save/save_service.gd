@@ -64,8 +64,14 @@ func write_raw(payload: Dictionary) -> Error:
 	if not FileAccess.file_exists(temporary_path):
 		push_error("Temporary save file '%s' was not created" % temporary_path)
 		return ERR_FILE_CANT_WRITE
+	if _read_raw_path(temporary_path).is_empty():
+		push_error("Temporary save file '%s' failed validation" % temporary_path)
+		return ERR_INVALID_DATA
 	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.copy_absolute(SAVE_PATH, BACKUP_PATH)
+		var backup_error := DirAccess.copy_absolute(SAVE_PATH, BACKUP_PATH)
+		if backup_error != OK:
+			push_error("Failed to preserve backup save '%s'" % BACKUP_PATH)
+			return backup_error
 	var rename_error := DirAccess.rename_absolute(temporary_path, SAVE_PATH)
 	if rename_error != OK:
 		push_error("Failed to publish save file '%s'" % SAVE_PATH)
