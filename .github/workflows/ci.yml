@@ -1,0 +1,33 @@
+name: IdleNecro CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    name: Documentation links and canon
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/validate_docs.py
+
+  godot:
+    name: Godot headless baseline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: false
+      - run: godot --headless --path . --editor --quit
+      - run: godot --headless --path . --script res://tests/test_runner.gd
