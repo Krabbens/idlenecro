@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "idlenecro",
+  "project_id": "8dce13a4-00f6-40ff-a4db-ba78c33ad09b"
+}
