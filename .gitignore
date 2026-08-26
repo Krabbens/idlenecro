@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+/qa/
 
 # Beads / Dolt files (added by bd init)
 .dolt/

@@ -1,0 +1,37 @@
+formula = "idle_release"
+type = "workflow"
+version = 1
+description = "Freeze, regresja, eksporty, publikacja i smoke aktualizacji IdleNecro."
+
+[vars.version]
+description = "Wersja kandydata, np. v1.0.0-beta.1"
+required = true
+
+[[steps]]
+id = "freeze"
+title = "{{version}} — freeze"
+description = "Zamroź zakres, wersję content/save i artefakty; zachowaj poprzedni działający build."
+
+[[steps]]
+id = "regression"
+title = "{{version}} — pełna regresja"
+description = "Uruchom CI, deterministyczny replay, save round-trip, scene smoke i stres hordy."
+needs = ["freeze"]
+
+[[steps]]
+id = "exports"
+title = "{{version}} — eksporty dystrybucyjne"
+description = "Zbuduj Windows/macOS/Linux, Android AAB i iOS/TestFlight zgodnie z dostępnymi sekretami."
+needs = ["regression"]
+
+[[steps]]
+id = "publish"
+title = "{{version}} — upload i smoke aktualizacji"
+description = "Opublikuj itch.io/TestFlight/Google Play Internal, zainstaluj aktualizację i sprawdź kompatybilność zapisu."
+needs = ["exports"]
+
+[[steps]]
+id = "report"
+title = "{{version}} — raport wydania"
+description = "Zapisz urządzenia, logi, crashe, metryki, ograniczenia i zamknij bead dopiero z dowodami."
+needs = ["publish"]

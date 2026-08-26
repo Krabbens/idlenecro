@@ -33,6 +33,28 @@ func add_periodic_effect(target_id: int, effect: PeriodicDamageEffect) -> bool:
 	return true
 
 
+func get_actors() -> Array[CombatantState]:
+	var actors: Array[CombatantState] = []
+	for actor_id in _sorted_actor_ids():
+		actors.append(_actors[actor_id])
+	return actors
+
+
+func is_battle_over() -> bool:
+	var living_factions: Dictionary[StringName, bool] = {}
+	for actor in get_actors():
+		if actor.health.current > 0:
+			living_factions[actor.faction] = true
+	return living_factions.size() <= 1
+
+
+func winner_faction() -> StringName:
+	for actor in get_actors():
+		if actor.health.current > 0:
+			return actor.faction
+	return &""
+
+
 func step_tick() -> void:
 	tick += 1
 	var contacts: Array[DamageRequest] = []

@@ -1,0 +1,37 @@
+formula = "idle_feature"
+type = "workflow"
+version = 1
+description = "Specyfikacja, implementacja, testy i dowody jakości funkcji IdleNecro."
+
+[vars.feature]
+description = "Nazwa funkcji lub bead nadrzędny"
+required = true
+
+[[steps]]
+id = "spec"
+title = "{{feature}} — specyfikacja i kryteria akceptacji"
+description = "Uzupełnij kontrakt domenowy/UI, kryteria akceptacji i zależności w Beads."
+
+[[steps]]
+id = "implementation"
+title = "{{feature}} — implementacja"
+description = "Wprowadź statycznie typowaną implementację zgodną z dokumentacją i istniejącą architekturą."
+needs = ["spec"]
+
+[[steps]]
+id = "tests"
+title = "{{feature}} — testy regresji"
+description = "Dodaj testy headless, deterministyczny replay i round-trip danych, gdy kontrakt tego wymaga."
+needs = ["implementation"]
+
+[[steps]]
+id = "runtime-qa"
+title = "{{feature}} — gdmcp, logi i visual/performance QA"
+description = "Uruchom scenę przez gdmcp, zbierz logi, screenshoty i metryki PC/mobile; zapisz ograniczenia."
+needs = ["tests"]
+
+[[steps]]
+id = "documentation"
+title = "{{feature}} — dokumentacja i dowody"
+description = "Zaktualizuj źródło prawdy, ADR jeśli potrzeba, komentarz Beads i raport Definition of Done."
+needs = ["runtime-qa"]
