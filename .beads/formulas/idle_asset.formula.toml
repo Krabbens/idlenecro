@@ -1,0 +1,37 @@
+formula = "idle_asset"
+type = "workflow"
+version = 1
+description = "Brief, koncept, produkcja, prawa, import i QA assetu IdleNecro."
+
+[vars.asset]
+description = "Id lub nazwa assetu"
+required = true
+
+[[steps]]
+id = "brief"
+title = "{{asset}} — brief"
+description = "Zapisz funkcję assetu, kierunki, pivot, rozmiary PC/mobile i ograniczenia czytelności."
+
+[[steps]]
+id = "concept"
+title = "{{asset}} — koncept oryginalny"
+description = "Przygotuj oryginalny koncept AI-assisted lub ręczny bez kopiowania cudzej tożsamości."
+needs = ["brief"]
+
+[[steps]]
+id = "production"
+title = "{{asset}} — produkcja i obróbka"
+description = "Wykonaj ręczną obróbkę, warianty animacji i eksport w formacie uzgodnionym z pipeline."
+needs = ["concept"]
+
+[[steps]]
+id = "rights-import"
+title = "{{asset}} — prawa, pochodzenie i import"
+description = "Udokumentuj źródło/prompt/licencję, zaimportuj asset i sprawdź brak brakujących zależności."
+needs = ["production"]
+
+[[steps]]
+id = "qa"
+title = "{{asset}} — QA PC/mobile"
+description = "Zweryfikuj pivot, sorting, kontrast, rozdzielczości i wydajność na desktopie oraz słabym mobile."
+needs = ["rights-import"]
