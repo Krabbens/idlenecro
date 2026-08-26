@@ -8,6 +8,7 @@ func _initialize() -> void:
 	_check_project_identity()
 	_check_display_contract()
 	_check_documentation_contract()
+	_check_combat_contract()
 	if _failures == 0:
 		print("IdleNecro baseline smoke passed.")
 		quit(0)
@@ -43,6 +44,31 @@ func _check_documentation_contract() -> void:
 		FileAccess.file_exists("res://agents/04_technical_architecture.md"),
 		"technical architecture must remain available"
 	)
+
+
+func _check_combat_contract() -> void:
+	var health := Health.new(10)
+	_expect(health.apply_damage(3) == 3, "health should report applied damage")
+	_expect(health.current == 7, "health should reduce current value")
+	var effect := PeriodicDamageEffect.new(&"test_poison", 2, 2, 4)
+	_expect(effect.advance_tick() == 0, "periodic effect should wait for its interval")
+	_expect(effect.advance_tick() == 2, "periodic effect should proc on its interval")
+
+	var first := _simulate_combat(42)
+	var second := _simulate_combat(42)
+	_expect(first == second, "same seed must produce the same combat digest")
+
+
+func _simulate_combat(simulation_seed: int) -> String:
+	var simulation := CombatSimulation.new(simulation_seed)
+	var ally := CombatantState.new(1, &"grave_caller", Vector2i(0, 0), 10, 2, 0, 1, 2)
+	var enemy := CombatantState.new(2, &"crypt", Vector2i(1, 0), 6, 1, 0, 1, 2)
+	simulation.add_actor(ally)
+	simulation.add_actor(enemy)
+	simulation.add_periodic_effect(2, PeriodicDamageEffect.new(&"test_decay", 1, 2, 4))
+	for _tick in range(4):
+		simulation.step_tick()
+	return simulation.state_digest()
 
 
 func _expect(condition: bool, message: String) -> void:
