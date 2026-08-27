@@ -2,7 +2,9 @@ name: IdleNecro CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - 'integration/**'
   pull_request:
 
 permissions:
