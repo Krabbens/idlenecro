@@ -46,3 +46,15 @@ bd prime                # Refresh Beads context
 - An agent may commit, push and close a bead only after recording commands, test results, fresh gdmcp logs, visual/performance evidence when relevant, and remaining limitations.
 - Do not change product canon, v1 scope, asset rights or public save contracts implicitly. Create/update an ADR and a blocking decision bead first.
 - Beads metrics are disabled for this project. The game itself remains offline-first and does not gain a telemetry backend.
+
+## Professional Git/GitHub workflow
+
+- Start every code bead with a recorded baseline: `git status --short`, current branch, remotes, and the files already modified by the user. Use one branch/worktree per bead, named `<type>/<bead-id>-<slug>`.
+- The canonical branch and delivery workflow is documented in `agents/10_git_github_workflow.md`: protected `main` <- `integration/<milestone>` <- one `feat/`, `fix/`, or `chore/` leaf branch per bead. For the current milestone use `integration/vertical-slice`.
+- Branches follow a tree: protected `main` is release, `integration/<milestone>` is the intermediate integration/QA gate, and `feat/`, `fix/`, or `chore/` branches are leaf branches for individual beads. For the current milestone use `integration/vertical-slice`.
+- Merge direction is leaf branch → `integration/<milestone>` → `main`; do not open a task PR directly against `main` unless an explicit emergency decision authorizes it. CI must pass on both the leaf PR and the integration branch before promotion.
+- Preserve unrelated working-tree changes. Never use `git add .`, `git add -A`, or `git commit -a`; stage only reviewed paths or hunks belonging to the bead.
+- Keep commits atomic and use an imperative Conventional Commit subject no longer than 72 characters, for example `fix(ui): improve bitmap font readability (idlenecro-ywy.4.1)`. The body records the problem, the decision, and verification; use `Refs: <bead-id>` and reserve `Closes:` for an issue intentionally completed by that commit.
+- Before committing, inspect `git diff --cached`, run `git diff --cached --check`, and verify that tests, fresh logs, visual evidence, generated files, and documentation match the staged scope. Do not stage secrets, caches, or unrelated generated output.
+- After committing, inspect `git show --stat --oneline --decorate HEAD`, record the commit and evidence in Beads, and push the named branch with `git push -u origin <branch>`. Never force-push or push directly to protected `main`.
+- A pull request is the normal review boundary. Open it only when requested or required by project policy; include summary, tests, limitations, and the bead reference. Merging, releasing, and closing a bead are separate actions and require their own evidence and authorization.

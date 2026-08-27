@@ -4,6 +4,10 @@
 
 Najpierw ustal prawdę o projekcie, potem wykonaj najmniejszą zmianę realizującą kryteria, a na końcu dostarcz dowody. Nie zastępuj inspekcji założeniami ani testu opisem.
 
+## Dostarczanie przez Git/GitHub
+
+Git jest częścią Definition of Done, a nie czynnością porządkową po implementacji. Pełny, kanoniczny opis znajduje się w [Workflow Git/GitHub](10_git_github_workflow.md). Ten playbook definiuje kolejność pracy agenta; dokument workflow definiuje gałęzie, commity, CI, PR i promocję do `main`.
+
 ## Cykl zadania
 
 ### 1. Przyjęcie
