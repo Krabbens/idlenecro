@@ -50,6 +50,7 @@ bd prime                # Refresh Beads context
 ## Professional Git/GitHub workflow
 
 - Start every code bead with a recorded baseline: `git status --short`, current branch, remotes, and the files already modified by the user. Use one branch/worktree per bead, named `<type>/<bead-id>-<slug>`.
+- The canonical branch and delivery workflow is documented in `agents/10_git_github_workflow.md`: protected `main` <- `integration/<milestone>` <- one `feat/`, `fix/`, or `chore/` leaf branch per bead. For the current milestone use `integration/vertical-slice`.
 - Preserve unrelated working-tree changes. Never use `git add .`, `git add -A`, or `git commit -a`; stage only reviewed paths or hunks belonging to the bead.
 - Keep commits atomic and use an imperative Conventional Commit subject no longer than 72 characters, for example `fix(ui): improve bitmap font readability (idlenecro-ywy.4.1)`. The body records the problem, the decision, and verification; use `Refs: <bead-id>` and reserve `Closes:` for an issue intentionally completed by that commit.
 - Before committing, inspect `git diff --cached`, run `git diff --cached --check`, and verify that tests, fresh logs, visual evidence, generated files, and documentation match the staged scope. Do not stage secrets, caches, or unrelated generated output.

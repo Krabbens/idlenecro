@@ -26,6 +26,7 @@ Przed każdym zadaniem:
 | [07_ui_mobile_accessibility.md](07_ui_mobile_accessibility.md) | responsywnego UI, dotyku i dostępności |
 | [08_qa_definition_of_done.md](08_qa_definition_of_done.md) | testów, macierzy urządzeń i akceptacji |
 | [09_agent_playbook.md](09_agent_playbook.md) | przebiegu zadania i raportu końcowego |
+| [10_git_github_workflow.md](10_git_github_workflow.md) | kanonicznego workflow branchy, commitów, CI, PR i Beads |
 
 Szablony znajdują się w [`templates/`](templates/): specyfikacja funkcji, brief assetu, rekord decyzji i prompt obrazu.
 

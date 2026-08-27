@@ -6,14 +6,7 @@ Najpierw ustal prawdę o projekcie, potem wykonaj najmniejszą zmianę realizuj�
 
 ## Dostarczanie przez Git/GitHub
 
-Git jest częścią Definition of Done, a nie czynnością porządkową po implementacji.
-
-1. Na początku zapisz baseline: `git status --short`, branch, remotes oraz listę plików zmienionych wcześniej przez użytkownika. Pracuj na osobnym branchu/worktree dla beada, w konwencji `<type>/<bead-id>-<slug>`.
-2. Trzymaj zakres commita atomowy. Stage'uj wyłącznie jawnie wybrane ścieżki lub hunki; nie używaj `git add .`, `git add -A` ani `git commit -a`. Niezwiązane zmiany zostają nietknięte.
-3. Użyj imperatywnego subjectu Conventional Commits, maksymalnie 72 znaki, np. `fix(ui): improve bitmap font readability (idlenecro-ywy.4.1)`. Body ma opisać problem, decyzję i weryfikację. Dodaj `Refs: <bead-id>`; `Closes:` stosuj tylko wtedy, gdy ten commit faktycznie kończy zadanie.
-4. Przed commitem obejrzyj `git diff --cached`, uruchom `git diff --cached --check` oraz właściwe testy, kontrolę logów, visual QA i walidację dokumentacji. Sprawdź, czy staged diff nie zawiera sekretów, cache ani niezwiązanych wygenerowanych plików.
-5. Po commicie sprawdź `git show --stat --oneline --decorate HEAD`, dopisz hash, komendy i dowody do beada, a następnie — gdy użytkownik udzielił zgody na publikację — wypchnij nazwany branch przez `git push -u origin <branch>`. Nie rób force-push i nie wypychaj bezpośrednio na chroniony `main`.
-6. Pull request jest granicą przeglądu: otwórz go tylko na żądanie użytkownika albo gdy wymaga tego polityka repozytorium. Opis PR zawiera podsumowanie, testy, ograniczenia i link do beada. Merge, release i zamknięcie beada są osobnymi decyzjami; bead zamknij dopiero po zapisaniu dowodów dostarczenia.
+Git jest częścią Definition of Done, a nie czynnością porządkową po implementacji. Pełny, kanoniczny opis znajduje się w [Workflow Git/GitHub](10_git_github_workflow.md). Ten playbook definiuje kolejność pracy agenta; dokument workflow definiuje gałęzie, commity, CI, PR i promocję do `main`.
 
 ## Cykl zadania
 
