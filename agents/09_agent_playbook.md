@@ -8,6 +8,18 @@ Najpierw ustal prawdę o projekcie, potem wykonaj najmniejszą zmianę realizuj�
 
 Git jest częścią Definition of Done, a nie czynnością porządkową po implementacji.
 
+### Drzewo branchy
+
+```text
+main                         # release, chroniony
+└── integration/vertical-slice # integracja i QA milestone'u
+    ├── feat/<bead-id>-<slug>  # nowa funkcja
+    ├── fix/<bead-id>-<slug>   # bugfix
+    └── chore/<bead-id>-<slug> # proces, dokumentacja, tooling
+```
+
+`main` przyjmuje wyłącznie stabilny stan przez PR. Branch `integration/<milestone>` jest poziomem pośrednim: zbiera zaakceptowane branche beadów, uruchamia CI po pushu i służy do wspólnego QA. Każdy branch zadania powstaje od właściwego brancha integracyjnego, a jego PR celuje do integracji. Po przejściu testów i QA integracja trafia do `main` przez osobny PR. Bezpośredni task branch → `main` jest wyjątkiem wymagającym jawnej decyzji.
+
 1. Na początku zapisz baseline: `git status --short`, branch, remotes oraz listę plików zmienionych wcześniej przez użytkownika. Pracuj na osobnym branchu/worktree dla beada, w konwencji `<type>/<bead-id>-<slug>`.
 2. Trzymaj zakres commita atomowy. Stage'uj wyłącznie jawnie wybrane ścieżki lub hunki; nie używaj `git add .`, `git add -A` ani `git commit -a`. Niezwiązane zmiany zostają nietknięte.
 3. Użyj imperatywnego subjectu Conventional Commits, maksymalnie 72 znaki, np. `fix(ui): improve bitmap font readability (idlenecro-ywy.4.1)`. Body ma opisać problem, decyzję i weryfikację. Dodaj `Refs: <bead-id>`; `Closes:` stosuj tylko wtedy, gdy ten commit faktycznie kończy zadanie.
